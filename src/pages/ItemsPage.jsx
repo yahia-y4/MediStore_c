@@ -11,11 +11,20 @@ export default function ItemsPage() {
   const [modalType, setModalType] = useState("error");
   const [viewItemId, setViewItemId] = useState(null);
   const [editItemId, setEditItemId] = useState(null);
+  
+  // تخزين التوكن في state
+  const [token, setToken] = useState(localStorage.getItem("auth_token") || "");
+
+  // إعادة جلب الأدوية عند تغير التوكن
+  useEffect(() => {
+    if (!token) return; // لا تفعل شيء إذا لم يوجد توكن
+    fetchItems();
+  }, [token]);
 
   const fetchItems = async () => {
     try {
       const res = await fetch("http://prog2025.goldyol.com/api/items", {
-        headers: { Authorization: localStorage.getItem("auth_token") || "" },
+        headers: { Authorization: token },
       });
       const data = await res.json();
       if (res.ok) setItems(data.data || []);
@@ -29,7 +38,7 @@ export default function ItemsPage() {
     try {
       const res = await fetch(`http://prog2025.goldyol.com/api/items/${id}`, {
         method: "DELETE",
-        headers: { Authorization: localStorage.getItem("auth_token") || "" },
+        headers: { Authorization: token },
       });
       const data = await res.json();
       if (res.ok) {
@@ -46,52 +55,82 @@ export default function ItemsPage() {
     }
   };
 
-  useEffect(() => { fetchItems(); }, []);
+  // هذه الدالة يمكن استخدامها عند تسجيل دخول جديد لتحديث التوكن
+  const updateToken = (newToken) => {
+    localStorage.setItem("auth_token", newToken);
+    setToken(newToken);
+  };
 
   return (
     <div className="items-page-content">
       <h1>إدارة الأدوية</h1>
 
       <div className="items-layout">
-        {/* قسم إضافة الدواء ثابت */}
         <div className="add-section">
           <AddItem onItemAdded={fetchItems} />
         </div>
 
-        {/* قائمة عرض الأدوية */}
         <div className="list-section">
           <h2>قائمة الأدوية</h2>
           {items.length > 0 ? (
             <ul className="item-list">
-              {items.map(i => (
+              {items.map((i) => (
                 <li key={i.id} className="item">
                   <div className="item-info">
                     <span className="item-name">{i.name}</span>
                     <span className="item-company">{i.company}</span>
                     <span className="item-price">سعر البيع: {i.selling_price}</span>
                     <span className="item-qty">الكمية: {i.quantity}</span>
-                    <span className="item-expiry">تاريخ الانتهاء: {i.expiry_date?.split("T")[0]}</span>
+                    <span className="item-expiry">
+                      تاريخ الانتهاء: {i.expiry_date?.split("T")[0]}
+                    </span>
                   </div>
                   <div className="item-actions">
-                    <button className="view-btn" onClick={() => setViewItemId(i.id)}>عرض التفاصيل</button>
-                    <button className="edit-btn" onClick={() => setEditItemId(i.id)}>تعديل</button>
-                    <button className="delete-btn" onClick={() => handleDelete(i.id)}>حذف</button>
+                    <button
+                      className="view-btn"
+                      onClick={() => setViewItemId(i.id)}
+                    >
+                      عرض التفاصيل
+                    </button>
+                    <button
+                      className="edit-btn"
+                      onClick={() => setEditItemId(i.id)}
+                    >
+                      تعديل
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(i.id)}
+                    >
+                      حذف
+                    </button>
                   </div>
                 </li>
               ))}
             </ul>
-          ) : <p className="no-items">لا يوجد أدوية</p>}
+          ) : (
+            <p className="no-items">لا يوجد أدوية</p>
+          )}
         </div>
       </div>
 
-      {/* مودال عرض التفاصيل */}
-      {viewItemId && <ItemDetails itemId={viewItemId} onClose={() => setViewItemId(null)} />}
+      {viewItemId && (
+        <ItemDetails itemId={viewItemId} onClose={() => setViewItemId(null)} />
+      )}
 
-      {/* مودال تعديل الدواء */}
-      {editItemId && <EditItem itemId={editItemId} onClose={() => setEditItemId(null)} onUpdated={fetchItems} />}
+      {editItemId && (
+        <EditItem
+          itemId={editItemId}
+          onClose={() => setEditItemId(null)}
+          onUpdated={fetchItems}
+        />
+      )}
 
-      {/* مودال الرسائل */}
-      <Modal message={modalMessage} type={modalType} onClose={() => setModalMessage("")} />
+      <Modal
+        message={modalMessage}
+        type={modalType}
+        onClose={() => setModalMessage("")}
+      />
     </div>
   );
 }

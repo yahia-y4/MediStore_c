@@ -3,28 +3,33 @@
   top: 0;
   right: 0;
   height: 100vh;
-  width: 220px;
-  background-color: #2c3e50;
+  width: 240px;
+  background-color: #001E33; /* لون الشريط الجانبي */
   color: white;
-  padding: 20px;
-  transition: width 0.3s ease;
+  padding: 25px 20px;
+  transition: width 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   z-index: 1000;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4); /* ظل جميل على الجانب */
 }
 
 .sidebar.closed {
-  width: 60px;
-  padding: 20px 10px;
+  width: 70px;
+  padding: 25px 10px;
 }
 
 .sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 25px;
 }
 
 .sidebar-title {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: bold;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -35,10 +40,10 @@
   background-color: #3498db;
   border: none;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   border-radius: 6px;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -52,43 +57,47 @@
 
 .sidebar nav ul {
   list-style: none;
-  padding: 20px 0 0 0;
+  padding: 25px 0 0 0;
   margin: 0;
 }
 
 .sidebar nav ul li {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .sidebar nav ul li a {
   color: white;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 16px;
   display: block;
-  padding: 6px 8px;
-  border-radius: 5px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .sidebar nav ul li a.active-link,
 .sidebar nav ul li a:hover {
-  background-color: #34495e;
+  background-color: #00264d; /* ظل أغمق عند المرور */
+  transform: translateX(-2px);
 }
 
 .app-layout .main-content {
-  margin-right: 220px;
-  padding: 20px;
+  margin-right: 240px;
+  padding: 25px;
   transition: margin-right 0.3s ease;
+  font-size: 16px;
 }
 
 .sidebar.closed ~ .main-content {
-  margin-right: 60px;
+  margin-right: 70px;
 }
+
 .unread-count {
   background-color: red;
   color: white;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: bold;
-  padding: 2px 6px;
+  padding: 3px 7px;
   border-radius: 50%;
   margin-left: 8px;
 }

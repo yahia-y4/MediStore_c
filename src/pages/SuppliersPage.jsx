@@ -42,7 +42,12 @@ export default function SuppliersPage() {
         headers: { "Authorization": localStorage.getItem("auth_token") || "" },
       });
 
-      const data = await response.json();
+      let data = {};
+      try {
+        data = await response.json();
+      } catch (e) {
+        data = {};
+      }
 
       if (response.ok) {
         setModalMessage(data.message || "تم حذف المورد بنجاح");
@@ -50,11 +55,12 @@ export default function SuppliersPage() {
         fetchSuppliers();
       } else {
         setModalMessage(
-          data.message + (data.total_debt ? `، الديون: ${data.total_debt}` : "")
+          data.message || `لا يمكن حذف المورد${data.total_debt ? `، الديون: ${data.total_debt}` : ""}`
         );
         setModalType("error");
       }
     } catch (error) {
+      console.error("Delete supplier error:", error);
       setModalMessage("حصل خطأ في الاتصال بالسيرفر");
       setModalType("error");
     }
@@ -67,14 +73,14 @@ export default function SuppliersPage() {
       <h1>إدارة الموردين</h1>
       <div className="suppliers-layout">
         {/* قسم إضافة المورد */}
-        <div className="add-section" style={{"backgroundColor":"#001E33"}}>
+        <div className="add-section" style={{ "backgroundColor": "#001E33" }}>
           <h2>إضافة مورد جديد</h2>
           <AddSupplier onSupplierAdded={fetchSuppliers} />
         </div>
 
         {/* قسم قائمة الموردين */}
         <div className="list-section">
-          <h2 style={{"color":"#fff"}}>قائمة الموردين</h2>
+          <h2 style={{ "color": "#fff" }}>قائمة الموردين</h2>
           {Array.isArray(suppliers) && suppliers.length > 0 ? (
             <ul className="supplier-list">
               {suppliers.map((s) => (

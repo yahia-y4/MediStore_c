@@ -34,7 +34,20 @@ export default function EditItem({ itemId, onClose, onUpdated }) {
   }, [itemId]);
 
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+
+    setFormData(prev => {
+      const updated = { ...prev, [name]: value };
+
+      // تحديث سعر البيع تلقائيًا عند تغيير سعر الجملة أو هامش الربح
+      if (name === "wholesale_price" || name === "profit_margin") {
+        const price = parseFloat(updated.wholesale_price) || 0;
+        const profit = parseFloat(updated.profit_margin) || 0;
+        updated.selling_price = (price + price * (profit / 100)).toFixed(2);
+      }
+
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -75,11 +88,11 @@ export default function EditItem({ itemId, onClose, onUpdated }) {
         <label>سعر الجملة</label>
         <input type="number" name="wholesale_price" value={formData.wholesale_price} onChange={handleChange} required />
 
-        <label>هامش الربح</label>
+        <label>نسبة الربح (%)</label>
         <input type="number" name="profit_margin" value={formData.profit_margin} onChange={handleChange} required />
 
         <label>سعر البيع</label>
-        <input type="number" name="selling_price" value={formData.selling_price} onChange={handleChange} required />
+        <input type="number" name="selling_price" value={formData.selling_price} readOnly />
 
         <label>الباركود</label>
         <input type="text" name="barcode" value={formData.barcode} onChange={handleChange} required />
