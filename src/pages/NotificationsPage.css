@@ -1,0 +1,69 @@
+/* NotificationsPage.css */
+.notifications-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.notifications-page h2 {
+  margin-bottom: 20px;
+  color: #1a73e8; /* لون أزرق واضح */
+  font-size: 28px; /* تكبير الخط لزيادة الوضوح */
+  font-weight: 700; /* جعل العنوان غامق */
+  text-align: center;
+}
+
+.notifications-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.notification-card {
+  background-color: #f5f5f5;
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s;
+}
+
+.notification-card:hover {
+  transform: translateY(-5px);
+}
+
+.notification-card.read {
+  opacity: 0.6;
+}
+
+.notification-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.red-dot {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.mark-read-btn {
+  align-self: flex-start;
+  padding: 5px 10px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.mark-read-btn:hover {
+  background-color: #0056b3;
+}

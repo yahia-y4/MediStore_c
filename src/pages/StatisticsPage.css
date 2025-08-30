@@ -1,0 +1,46 @@
+/* src/pages/StatisticsPage.css */
+.statistics-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  min-height: 100vh;
+  background-color: #001E33;
+  color: #fff;
+}
+
+.statistics-page h1 {
+  text-align: center;
+  color: #0194FF;
+  margin-bottom: 20px;
+}
+
+.stats-section {
+  margin-bottom: 30px;
+}
+
+.stats-section h2 {
+  color: #0194FF;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #0194FF;
+  padding-bottom: 5px;
+}
+
+.stats-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.stat-card {
+  flex: 1 1 200px;
+  background-color: #002A4A;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(1,148,255,0.3);
+}
+
+.loading-text {
+  text-align: center;
+  font-size: 16px;
+  color: #0194FF;
+}

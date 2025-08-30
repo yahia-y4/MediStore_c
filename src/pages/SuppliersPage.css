@@ -1,0 +1,52 @@
+/* pages/StatisticsPage.css */
+.statistics-page {
+  min-height: 100vh;            /* يغطي كامل الشاشة */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;      /* يضع المحتوى في وسط الشاشة عموديًا */
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #001E33;
+  background: #f5f7fa;          /* خلفية فاتحة مريحة */
+}
+
+.statistics-page h1 {
+  margin-bottom: 20px;
+  color: #001E33;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;           /* يمنع الكاردات من التمدد كثيرًا */
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card h2 {
+  color: #0194FF;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.stat-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.stat-card li {
+  margin-bottom: 8px;
+}

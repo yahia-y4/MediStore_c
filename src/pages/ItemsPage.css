@@ -1,0 +1,211 @@
+.items-page-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+}
+
+.items-page-content h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+.items-layout {
+  display: flex;
+  gap: 20px;
+}
+
+/* قائمة إضافة الدواء ثابتة على اليمين */
+.add-section {
+  width: 300px;
+  flex-shrink: 0;
+  padding: 20px;
+  background: #f7f9fc;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+.add-item-form label,
+.edit-item-form label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 3px;
+  color: #34495e;
+}
+
+.add-item-form input,
+.edit-item-form input {
+  width: 100%;
+  padding: 6px 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* قائمة عرض الأدوية على اليسار */
+.list-section {
+  flex: 1;
+  min-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.list-section h2 {
+  color: #34495e;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+/* عناصر الدواء */
+.item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.item-company,
+.item-price,
+.item-qty,
+.item-expiry {
+  font-size: 13px;
+  color: #555;
+}
+
+/* أزرار الأوامر */
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.item-actions button {
+  padding: 5px 10px;
+  font-size: 13px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 80px;
+  color: white;
+  transition: background 0.2s;
+}
+
+.view-btn {
+  background-color: #3498db;
+}
+
+.view-btn:hover {
+  background-color: #2980b9;
+}
+
+.edit-btn {
+  background-color: #2ecc71;
+}
+
+.edit-btn:hover {
+  background-color: #27ae60;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+.no-items {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* مودال الرسائل */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.modal-message {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.modal-close,
+.modal-content button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 80px;
+  height: 30px;
+  font-size: 14px;
+  margin: 0 5px;
+}
+
+.modal-close {
+  background-color: #7f8c8d;
+  color: white;
+}
+
+.modal-close:hover {
+  background-color: #636e72;
+}

@@ -1,0 +1,127 @@
+.add-purchase-invoice {
+  width: 600px;
+  padding: 20px;
+  background: #001E33;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  margin: auto;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.add-purchase-invoice h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #0194FF;
+}
+
+.invoice-form label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* تعديل حجم الحقول لتكون متناسقة */
+.invoice-form input,
+.invoice-form select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #0194FF;
+  background-color: #001E33;
+  color: #fff;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.invoice-form input::placeholder,
+.invoice-form select::placeholder {
+  color: #0194FF;
+}
+
+.items-search-results {
+  max-height: 160px;
+  overflow-y: auto;
+  margin-top: 5px;
+  border: 1px solid #0194FF;
+  border-radius: 6px;
+  padding: 5px;
+  background-color: #001E33;
+}
+
+.items-search-results button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 6px;
+  border: none;
+  background-color: #0194FF;
+  border-radius: 4px;
+  margin-bottom: 3px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+}
+
+.items-search-results button:hover {
+  background-color: #001E33;
+  color: #0194FF;
+  border: 1px solid #0194FF;
+}
+
+.items-table-container {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-top: 10px;
+  border: 2px solid #0194FF;
+  border-radius: 6px;
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+.items-table th,
+.items-table td {
+  border: 1px solid #0194FF;
+  padding: 6px;
+  text-align: center;
+}
+
+.items-table th {
+  background-color: #0194FF;
+  color: #001E33;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.total-price {
+  margin-top: 10px;
+  font-size: 16px;
+  text-align: right;
+  color: #0194FF;
+}
+
+.invoice-form button[type="submit"] {
+  margin-top: 15px;
+  padding: 10px 12px;
+  background-color: #0194FF;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.invoice-form button[type="submit"]:hover {
+  background-color: #001E33;
+  color: #0194FF;
+  border: 1px solid #0194FF;
+}

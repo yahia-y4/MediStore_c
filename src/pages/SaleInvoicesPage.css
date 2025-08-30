@@ -1,0 +1,142 @@
+/* الصفحة الرئيسية لفواتير البيع */
+.invoices-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  min-height: 100vh;
+  background-color: #001E33;
+  color: #fff;
+}
+
+.invoices-page h1 {
+  text-align: center;
+  color: #0194FF;
+  margin-bottom: 20px;
+}
+
+/* تنسيق الـ layout الداخلي */
+.invoices-layout {
+  display: flex;
+  gap: 20px;
+}
+
+/* قسم إضافة فاتورة */
+.add-invoice-section {
+  flex: 1;
+}
+
+/* قائمة الفواتير */
+.invoices-list-section {
+  flex: 2;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.invoices-list-section h2 {
+  margin-bottom: 15px;
+  color: #0194FF;
+  text-align: center;
+}
+
+ul.invoices-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.invoice-item {
+  background: #001E33;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #0194FF;
+  box-shadow: 0 1px 3px rgba(1,148,255,0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.invoice-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(1,148,255,0.5);
+}
+
+.invoice-item div {
+  margin: 3px 0;
+  font-size: 14px;
+}
+
+.invoice-item strong {
+  color: #0194FF;
+}
+
+/* نص عند عدم وجود فواتير */
+.no-invoices {
+  text-align: center;
+  color: #0194FF;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* مودال عرض تفاصيل الفاتورة */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,30,51,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #001E33;
+  padding: 25px 30px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 8px 20px rgba(1,148,255,0.25);
+  text-align: right;
+  color: #fff;
+}
+
+.modal-content h2,
+.modal-content h3 {
+  color: #0194FF;
+  margin-bottom: 15px;
+}
+
+.modal-content p,
+.modal-content li {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-close {
+  margin-top: 15px;
+  padding: 6px 12px;
+  background-color: #0194FF;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background-color: #001E33;
+  color: #0194FF;
+  border: 1px solid #0194FF;
+}
