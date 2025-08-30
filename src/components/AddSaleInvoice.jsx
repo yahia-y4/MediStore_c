@@ -35,18 +35,23 @@ export default function AddSaleInvoice({ onInvoiceAdded }) {
   // حساب الإجمالي
   useEffect(() => {
     const sum = invoiceData.items.reduce((acc, i) => {
-      const item = items.find(it => it.id === i.item_id);
-      if (!item) return acc;
-      return acc + parseFloat(i.selling_price) * i.quantity;
+      return acc + parseFloat(i.selling_price) * Number(i.quantity);
     }, 0);
     setTotalPrice(sum.toFixed(2));
-  }, [invoiceData.items, items]);
+  }, [invoiceData.items]);
 
   const addItem = (item) => {
     if (invoiceData.items.find(i => i.item_id === item.id)) return;
     setInvoiceData(prev => ({
       ...prev,
-      items: [...prev.items, { item_id: item.id, quantity: 1, selling_price: item.selling_price }]
+      items: [
+        ...prev.items,
+        { 
+          item_id: item.id, 
+          quantity: 1, 
+          selling_price: parseFloat(item.selling_price) || 0 
+        }
+      ]
     }));
   };
 
@@ -54,7 +59,9 @@ export default function AddSaleInvoice({ onInvoiceAdded }) {
     const qty = Math.max(Number(quantity), 1);
     setInvoiceData(prev => ({
       ...prev,
-      items: prev.items.map(i => i.item_id === itemId ? { ...i, quantity: qty } : i)
+      items: prev.items.map(i =>
+        i.item_id === itemId ? { ...i, quantity: qty } : i
+      )
     }));
   };
 
@@ -68,7 +75,18 @@ export default function AddSaleInvoice({ onInvoiceAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const payload = { ...invoiceData, total_price: totalPrice };
+      const payload = {
+        buyer_name: invoiceData.buyer_name,
+        warehouse_owner_name: invoiceData.warehouse_owner_name,
+        invoice_date: invoiceData.invoice_date,
+        total_price: parseFloat(totalPrice),
+        items: invoiceData.items.map(i => ({
+          item_id: i.item_id,
+          quantity: Number(i.quantity),
+          selling_price: parseFloat(i.selling_price)
+        }))
+      };
+
       const res = await fetch("http://prog2025.goldyol.com/api/sale-invoices", {
         method: "POST",
         headers: {
@@ -77,17 +95,21 @@ export default function AddSaleInvoice({ onInvoiceAdded }) {
         },
         body: JSON.stringify(payload),
       });
+
       const data = await res.json();
+
       if (res.ok) {
         setModalMessage("تم إنشاء فاتورة المبيعات بنجاح");
         setModalType("success");
+        // إعادة تعيين البيانات
         setInvoiceData({
           buyer_name: "",
           warehouse_owner_name: "",
           invoice_date: "",
           items: [],
         });
-        onInvoiceAdded();
+        setTotalPrice(0);
+        onInvoiceAdded && onInvoiceAdded();
       } else {
         setModalMessage(JSON.stringify(data.errors || data.message));
         setModalType("error");
@@ -99,13 +121,14 @@ export default function AddSaleInvoice({ onInvoiceAdded }) {
     }
   };
 
-  const filteredItems = items.filter(i => i.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredItems = items.filter(i =>
+    i.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="add-sale-invoice">
       <h2>إضافة فاتورة بيع</h2>
       <form onSubmit={handleSubmit} className="invoice-form">
-        {/* بيانات الفاتورة */}
         <label>اسم العميل</label>
         <input
           type="text"
@@ -146,7 +169,6 @@ export default function AddSaleInvoice({ onInvoiceAdded }) {
           ))}
         </div>
 
-        {/* جدول العناصر */}
         <div className="items-table-container">
           <table className="items-table">
             <thead>
@@ -166,7 +188,7 @@ export default function AddSaleInvoice({ onInvoiceAdded }) {
                 return (
                   <tr key={i.item_id}>
                     <td>{item?.name}</td>
-                    <td>{item?.quantity || "-"}</td> {/* عدد القطع يظهر الآن بشكل صحيح */}
+                    <td>{item?.quantity || "-"}</td>
                     <td>{i.selling_price}</td>
                     <td>
                       <input

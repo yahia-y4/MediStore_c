@@ -1,3 +1,4 @@
+/* ItemsPage.css - الثيم الداكن */
 .items-page-content {
   display: flex;
   flex-direction: column;
@@ -5,11 +6,14 @@
   margin: 20px auto;
   font-family: Arial, sans-serif;
   direction: rtl;
+  color: #fff;
+  background-color: #001E33;
 }
 
+/* العنوان الرئيسي */
 .items-page-content h1 {
   text-align: center;
-  color: #2c3e50;
+  color: #0194FF;
   margin-bottom: 25px;
 }
 
@@ -23,31 +27,40 @@
   width: 300px;
   flex-shrink: 0;
   padding: 20px;
-  background: #f7f9fc;
+  background: #001E33; /* خلفية داكنة */
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   position: sticky;
   top: 20px;
   height: fit-content;
+  border: 1px solid #0194FF;
 }
 
 .add-item-form label,
 .edit-item-form label {
   display: block;
   font-size: 13px;
-  margin-bottom: 3px;
-  color: #34495e;
+  margin-bottom: 6px;
+  color: #fff;
 }
 
 .add-item-form input,
 .edit-item-form input {
   width: 100%;
-  padding: 6px 8px;
+  padding: 8px;
   margin-bottom: 10px;
   font-size: 14px;
-  border: 1px solid #ccc;
+  border: 1px solid #0194FF;
   border-radius: 6px;
   box-sizing: border-box;
+  background-color: #002b4d;
+  color: #fff;
+}
+
+.add-item-form input:focus,
+.edit-item-form input:focus {
+  border-color: #0194FF;
+  background-color: #00385c;
 }
 
 /* قائمة عرض الأدوية على اليسار */
@@ -57,12 +70,34 @@
   max-height: 80vh;
   overflow-y: auto;
   padding-right: 10px;
+  border-radius: 12px;
+  border: 1px solid #0194FF;
 }
 
+/* Scrollbar */
+.list-section::-webkit-scrollbar {
+  width: 10px;
+}
+
+.list-section::-webkit-scrollbar-track {
+  background: #001E33;
+}
+
+.list-section::-webkit-scrollbar-thumb {
+  background-color: #0194FF;
+  border-radius: 10px;
+  border: 2px solid #001E33;
+}
+
+.list-section::-webkit-scrollbar-thumb:hover {
+  background-color: #005bb5;
+}
+
+/* العناوين */
 .list-section h2 {
-  color: #34495e;
+  color: #0194FF;
   margin-bottom: 15px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #0194FF;
   padding-bottom: 8px;
 }
 
@@ -80,14 +115,14 @@
   padding: 10px 12px;
   border-radius: 8px;
   margin-bottom: 10px;
-  background: #fff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  background: #002b4d;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 .item-info {
@@ -99,7 +134,7 @@
 .item-name {
   font-weight: bold;
   font-size: 16px;
-  color: #2c3e50;
+  color: #fff;
 }
 
 .item-company,
@@ -107,7 +142,7 @@
 .item-qty,
 .item-expiry {
   font-size: 13px;
-  color: #555;
+  color: #ccc;
 }
 
 /* أزرار الأوامر */
@@ -115,46 +150,53 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  align-items: center;
 }
 
 .item-actions button {
-  padding: 5px 10px;
+  padding: 6px 12px;
   font-size: 13px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   min-width: 80px;
-  color: white;
-  transition: background 0.2s;
+  color: #001E33;
+  font-weight: bold;
+  transition: all 0.2s ease;
 }
 
 .view-btn {
-  background-color: #3498db;
+  background-color: #0194FF;
 }
 
 .view-btn:hover {
-  background-color: #2980b9;
+  background-color: #001E33;
+  color: #0194FF;
 }
 
 .edit-btn {
   background-color: #2ecc71;
+  color: #001E33;
 }
 
 .edit-btn:hover {
   background-color: #27ae60;
+  color: #fff;
 }
 
 .delete-btn {
   background-color: #e74c3c;
+  color: #fff;
 }
 
 .delete-btn:hover {
   background-color: #c0392b;
 }
 
+/* رسالة عدم وجود عناصر */
 .no-items {
   text-align: center;
-  color: #777;
+  color: #ccc;
   font-size: 14px;
   margin-top: 20px;
 }
@@ -166,7 +208,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,36 +216,38 @@
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: #001E33;
   padding: 25px 30px;
-  border-radius: 10px;
+  border-radius: 12px;
   width: 400px;
   max-width: 90%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
   text-align: center;
+  color: #fff;
+  border: 1px solid #0194FF;
 }
 
 .modal-message {
   margin-bottom: 20px;
   font-size: 16px;
-  color: #2c3e50;
+  color: #fff;
 }
 
 .modal-close,
 .modal-content button {
   padding: 6px 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   min-width: 80px;
-  height: 30px;
+  height: 32px;
   font-size: 14px;
   margin: 0 5px;
 }
 
 .modal-close {
   background-color: #7f8c8d;
-  color: white;
+  color: #fff;
 }
 
 .modal-close:hover {

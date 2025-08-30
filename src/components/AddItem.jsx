@@ -69,7 +69,7 @@ export default function AddItem({ onItemAdded }) {
         <label>سعر الجملة</label>
         <input type="number" name="wholesale_price" value={formData.wholesale_price} onChange={handleChange} required />
 
-        <label>هامش الربح</label>
+        <label>نسبة الربح</label>
         <input type="number" name="profit_margin" value={formData.profit_margin} onChange={handleChange} required />
 
         <label>سعر البيع</label>

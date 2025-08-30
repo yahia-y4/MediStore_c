@@ -67,14 +67,14 @@ export default function SuppliersPage() {
       <h1>إدارة الموردين</h1>
       <div className="suppliers-layout">
         {/* قسم إضافة المورد */}
-        <div className="add-section">
+        <div className="add-section" style={{"backgroundColor":"#001E33"}}>
           <h2>إضافة مورد جديد</h2>
           <AddSupplier onSupplierAdded={fetchSuppliers} />
         </div>
 
         {/* قسم قائمة الموردين */}
         <div className="list-section">
-          <h2>قائمة الموردين</h2>
+          <h2 style={{"color":"#fff"}}>قائمة الموردين</h2>
           {Array.isArray(suppliers) && suppliers.length > 0 ? (
             <ul className="supplier-list">
               {suppliers.map((s) => (

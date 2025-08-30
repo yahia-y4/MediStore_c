@@ -15,6 +15,7 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
   });
   const [totalPrice, setTotalPrice] = useState(0);
 
+  // Fetch items
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -30,6 +31,7 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
     fetchItems();
   }, []);
 
+  // Fetch suppliers
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
@@ -45,6 +47,7 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
     fetchSuppliers();
   }, []);
 
+  // Calculate total price
   useEffect(() => {
     const sum = invoiceData.items.reduce((acc, i) => {
       const item = items.find(it => it.id === i.item_id);
@@ -119,7 +122,6 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
     <div className="add-purchase-invoice">
       <h2>إضافة فاتورة شراء</h2>
       <form onSubmit={handleSubmit} className="invoice-form">
-        {/* اختيار المورد */}
         <label>المورد</label>
         <select
           value={invoiceData.supplier_id}
@@ -140,7 +142,6 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
           )}
         </select>
 
-        {/* باقي الحقول والجداول كما هي */}
         <label>اسم صاحب المستودع</label>
         <input
           type="text"
@@ -204,6 +205,7 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
                 <th>سعر الشراء</th>
                 <th>الكمية</th>
                 <th>السعر الكلي</th>
+                <th>حذف</th>
               </tr>
             </thead>
             <tbody>
@@ -223,6 +225,20 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
                       />
                     </td>
                     <td>{total}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="delete-item-btn"
+                        onClick={() =>
+                          setInvoiceData(prev => ({
+                            ...prev,
+                            items: prev.items.filter(it => it.item_id !== i.item_id)
+                          }))
+                        }
+                      >
+                        حذف
+                      </button>
+                    </td>
                   </tr>
                 );
               })}

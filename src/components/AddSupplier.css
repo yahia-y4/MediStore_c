@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background: #fff;
-  padding: 15px;
+  background: #001E33; /* الخلفية الداكنة */
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* ظل داكن خفيف */
+  color: #fff;
+  border: 1px solid #0194FF; /* إطار ثانوي يتناسب مع الثيم */
 }
 
 .form-group {
@@ -16,45 +18,50 @@
 label {
   font-weight: bold;
   margin-bottom: 6px;
-  color: #333;
+  color: #fff;
 }
 
 input {
   padding: 10px;
-  border: 1px solid #aaa;
+  border: 1px solid #0194FF; /* حدود باللون الثانوي */
   border-radius: 8px;
   font-size: 14px;
   outline: none;
-  transition: border-color 0.2s;
+  background-color: #002b4d; /* خلفية داكنة للحقول */
+  color: #fff;
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
 input:focus {
-  border-color: #007bff;
+  border-color: #0194FF;
+  background-color: #00385c;
 }
 
 button {
   padding: 12px;
-  background-color: #007bff;
-  color: white;
+  background-color: #0194FF;
+  color: #001E33;
   border: none;
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #001E33;
+  color: #0194FF;
 }
 
 .error {
-  color: red;
+  color: #ff4d4d;
   font-size: 13px;
   margin-top: 4px;
 }
 
 .success {
-  color: green;
+  color: #4cd137;
   font-size: 14px;
   font-weight: bold;
   text-align: center;

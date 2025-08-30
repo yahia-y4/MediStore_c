@@ -1,46 +1,120 @@
-/* src/pages/StatisticsPage.css */
+/* StatisticsPage.css */
 .statistics-page {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  direction: rtl;
   min-height: 100vh;
-  background-color: #001E33;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  background-color: #001E33; /* الخلفية الرئيسية */
   color: #fff;
+  font-family: Arial, sans-serif;
 }
 
 .statistics-page h1 {
-  text-align: center;
-  color: #0194FF;
-  margin-bottom: 20px;
-}
-
-.stats-section {
   margin-bottom: 30px;
-}
-
-.stats-section h2 {
   color: #0194FF;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #0194FF;
-  padding-bottom: 5px;
+  text-align: center;
 }
 
-.stats-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .stat-card {
-  flex: 1 1 200px;
-  background-color: #002A4A;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(1,148,255,0.3);
+  background-color: #001E33;
+  border: 1px solid #0194FF;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.loading-text {
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+.stat-card h2 {
+  color: #0194FF;
+  margin-bottom: 15px;
+  font-size: 18px;
   text-align: center;
-  font-size: 16px;
+  border-bottom: 1px solid #0194FF;
+  padding-bottom: 8px;
+}
+
+.stat-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stat-card li {
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.stat-card li strong {
+  color: #0194FF;
+}
+
+/* Scrollbar للجداول أو القوائم الطويلة */
+.stat-card ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+.stat-card ul::-webkit-scrollbar-track {
+  background: #001E33;
+}
+
+.stat-card ul::-webkit-scrollbar-thumb {
+  background-color: #0194FF;
+  border-radius: 10px;
+  border: 2px solid #001E33;
+}
+
+/* مودال الرسائل */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #001E33;
+  border: 2px solid #0194FF;
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.modal-close {
+  background-color: #0194FF;
+  color: #001E33;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.modal-close:hover {
+  background-color: #001E33;
   color: #0194FF;
 }

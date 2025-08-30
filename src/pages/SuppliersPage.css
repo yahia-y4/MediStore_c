@@ -1,52 +1,167 @@
-/* pages/StatisticsPage.css */
-.statistics-page {
-  min-height: 100vh;            /* يغطي كامل الشاشة */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;      /* يضع المحتوى في وسط الشاشة عموديًا */
-  padding: 20px;
+/* SuppliersPage.css */
+.suppliers-page {
+  min-height: 100vh;
+  background-color: #001E33; /* الخلفية الرئيسية */
+  color: #fff;               /* لون النص */
   font-family: Arial, sans-serif;
-  color: #001E33;
-  background: #f5f7fa;          /* خلفية فاتحة مريحة */
+  padding: 20px;
 }
 
-.statistics-page h1 {
-  margin-bottom: 20px;
-  color: #001E33;
+.suppliers-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #fff;
 }
 
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  width: 100%;
-  max-width: 1200px;           /* يمنع الكاردات من التمدد كثيرًا */
+.suppliers-layout {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.stat-card {
-  background: #fff;
+
+/* قسم إضافة المورد والقائمة */
+.add-section, .list-section {
+  background-color: #001E33;
+  /* border: 1px solid #0194FF; */
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  flex: 0.5;
+  box-sizing: border-box;
+}
+
+.add-section h2, .list-section h2 {
+  color: #ffffff;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* قائمة الموردين */
+.supplier-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.supplier-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #0195ff52; /* لون فاتح نصف شفاف */
+  border-radius: 8px;
+  padding: 5px;
+  margin-bottom: 10px;
+  color: #fff;
   transition: transform 0.2s;
 }
 
-.stat-card:hover {
-  transform: translateY(-5px);
+.supplier-item:hover {
+  transform: translateY(-3px);
 }
 
-.stat-card h2 {
-  color: #0194FF;
+.supplier-info {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 10px;
-  font-size: 18px;
+  flex-wrap: wrap;
 }
 
-.stat-card ul {
-  list-style: none;
-  padding: 0;
+/* أزرار الموردين - عمودي */
+.supplier-actions {
+  display: flex;
+  flex-direction: column; /* جعل الأزرار فوق بعضها */
+  align-items: center;    /* محاذاة للوسط أفقياً */
+  gap: 10px;
 }
 
-.stat-card li {
-  margin-bottom: 8px;
+.supplier-actions button {
+  width: 30%;            /* عرض تقريبي 30% من الكارد */
+  min-width: 100px;      /* ضمان عرض أدنى للزر */
+  text-align: center;
+  background-color: #0194FF;
+  color: #001E33;
+  border: none;
+  padding: 8px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.supplier-actions button:hover {
+  background-color: #001E33;
+  color: #0194FF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* ألوان أزرار محددة */
+.view-btn {
+  background-color: #0194FF;
+}
+
+.pay-btn {
+  background-color: #0194FF;
+}
+
+.delete-btn {
+  background-color: #FF4D4D;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background-color: #c70000;
+  color: #fff;
+}
+
+.no-suppliers {
+  text-align: center;
+  margin-top: 10px;
+  color: #fff;
+}
+
+/* مودال الحذف */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #001E33;
+  border: 2px solid #0194FF;
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.modal-message {
+  margin-bottom: 15px;
+}
+
+.modal-close {
+  background-color: #0194FF;
+  color: #001E33;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-close:hover {
+  background-color: #001E33;
+  color: #0194FF;
+  border: 1px solid #0194FF;
 }
