@@ -3,57 +3,63 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px;
+  padding: 20px;
   min-height: 100vh;
-  color: #fff; /* النص أبيض */
-  background-color: #001E33; /* خلفية الصفحة موحدة */
+  color: #fff;
+  position: relative;
 }
 
+/* العنوان ثابت */
 .notifications-page h2 {
-  margin-bottom: 30px;
-  color: #0194FF; /* أزرق فاتح */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #001E33; /* نفس لون الخلفية الرئيسية */
+  width: 100%;
+  text-align: center;
+  margin: 0 0 20px 0;
+  padding: 15px 0;
+  color: #0194FF;
   font-size: 28px;
   font-weight: 700;
-  text-align: center;
   border-bottom: 2px solid #0194FF;
-  padding-bottom: 10px;
 }
 
+/* الحاوية التي تتحرك */
 .notifications-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 25px;
+  gap: 20px;
   max-width: 1000px;
+  overflow-y: auto;
+  width: 100%;
+  padding-bottom: 20px;
+  /* اضبط ارتفاعها إذا أردت أن يكون للسكرول مساحة محددة */
+  max-height: 80vh;
 }
 
 .notification-card {
-  background-color: #002b4d; /* خلفية موحدة للكرت */
+  background-color: #001E33;
   width: 320px;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* ظل جميل */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
   gap: 12px;
   transition: all 0.2s ease-in-out;
   position: relative;
-  color: #fff; /* نص داخل الكرت أبيض */
+  color: #fff;
 }
 
 .notification-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.35);
 }
 
 .notification-card.read {
   opacity: 0.7;
-}
-
-.notification-message {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
 .notification-message p {
@@ -65,7 +71,7 @@
 
 .notification-date {
   font-size: 13px;
-  color: #e0e0e0; /* أفتح شوي لتمييز التاريخ */
+  color: #e0e0e0;
   margin-top: 4px;
   align-self: flex-end;
 }
@@ -73,7 +79,7 @@
 .red-dot {
   width: 12px;
   height: 12px;
-  background-color: #ff4d4f; /* أحمر واضح */
+  background-color: #ff4d4f;
   border-radius: 50%;
   position: absolute;
   top: 12px;
