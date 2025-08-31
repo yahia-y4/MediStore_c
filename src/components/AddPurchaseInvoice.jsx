@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./AddPurchaseInvoice.css";
+import Modal from "./Modal";
 
-export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification }) {
+export default function AddPurchaseInvoice({ onInvoiceAdded }) {
   const [items, setItems] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [modalMessage, setModalMessage] = useState(null); // رسالة المودل
+  const [modalType, setModalType] = useState("error");   // نوع المودل
+
   const [invoiceData, setInvoiceData] = useState({
     supplier_id: "",
     warehouse_owner_name: "",
-    payment_status: "partial",
     paid_amount: 0,
     invoice_date: "",
     items: [],
@@ -78,7 +81,8 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const payload = { ...invoiceData, total_price: totalPrice };
+      // payment_status دائمًا "partial"
+      const payload = { ...invoiceData, total_price: totalPrice, payment_status: "partial" };
       const res = await fetch("https://prog2025.goldyol.com/api/purchase-invoices", {
         method: "POST",
         headers: {
@@ -90,12 +94,12 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
       const data = await res.json();
 
       if (res.ok) {
-        showNotification && showNotification("تم إنشاء الفاتورة بنجاح!", "success");
+        setModalMessage("تم إنشاء الفاتورة بنجاح!");
+        setModalType("success");
 
         setInvoiceData({
           supplier_id: "",
           warehouse_owner_name: "",
-          payment_status: "partial",
           paid_amount: 0,
           invoice_date: "",
           items: [],
@@ -106,11 +110,13 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
         const errorMsg = data.errors
           ? JSON.stringify(data.errors)
           : data.message || "حدث خطأ أثناء إنشاء الفاتورة";
-        showNotification && showNotification(errorMsg, "error");
+        setModalMessage(errorMsg);
+        setModalType("error");
       }
     } catch (err) {
       console.error(err);
-      showNotification && showNotification("حدث خطأ في الاتصال بالسيرفر", "error");
+      setModalMessage("حدث خطأ في الاتصال بالسيرفر");
+      setModalType("error");
     }
   };
 
@@ -151,17 +157,6 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
           }
           required
         />
-
-        <label>حالة الدفع</label>
-        <select
-          value={invoiceData.payment_status}
-          onChange={(e) =>
-            setInvoiceData({ ...invoiceData, payment_status: e.target.value })
-          }
-        >
-          <option value="partial">جزئي</option>
-          <option value="full">كامل</option>
-        </select>
 
         <label>المبلغ المدفوع</label>
         <input
@@ -253,6 +248,13 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
 
         <button type="submit">إضافة الفاتورة</button>
       </form>
+
+      {/* المودل للرسائل */}
+      <Modal
+        message={modalMessage}
+        type={modalType}
+        onClose={() => setModalMessage(null)}
+      />
     </div>
   );
 }

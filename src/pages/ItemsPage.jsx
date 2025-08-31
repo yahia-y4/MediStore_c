@@ -13,10 +13,8 @@ export default function ItemsPage() {
   const [editItemId, setEditItemId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // تخزين التوكن في state
   const [token, setToken] = useState(localStorage.getItem("auth_token") || "");
 
-  // إعادة جلب الأدوية عند تغير التوكن
   useEffect(() => {
     if (!token) return;
     fetchItems();
@@ -56,13 +54,11 @@ export default function ItemsPage() {
     }
   };
 
-  // تحديث التوكن عند تسجيل دخول جديد
   const updateToken = (newToken) => {
     localStorage.setItem("auth_token", newToken);
     setToken(newToken);
   };
 
-  // تصفية الأدوية حسب البحث بالاسم أو الكود
   const filteredItems = items.filter(
     (item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -73,7 +69,6 @@ export default function ItemsPage() {
     <div className="items-page-content">
       <h1>إدارة الأدوية</h1>
 
-      {/* خانة البحث */}
       <input
         type="text"
         placeholder="ابحث بالاسم أو الكود..."
@@ -96,7 +91,9 @@ export default function ItemsPage() {
                   <div className="item-info">
                     <span className="item-name">{i.name}</span>
                     <span className="item-company">{i.company}</span>
-                    <span className="item-price">سعر البيع: {i.selling_price}</span>
+                    <span className="item-price">
+                      سعر البيع: {i.selling_price}
+                    </span>
                     <span className="item-qty">الكمية: {i.quantity}</span>
                     <span className="item-expiry">
                       تاريخ الانتهاء: {i.expiry_date?.split("T")[0]}
@@ -143,6 +140,7 @@ export default function ItemsPage() {
         />
       )}
 
+      {/* المودال */}
       <Modal
         message={modalMessage}
         type={modalType}
