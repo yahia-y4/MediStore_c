@@ -1,8 +1,8 @@
 /* SuppliersPage.css */
 .suppliers-page {
   min-height: 100vh;
-  background-color: #001E33; /* الخلفية الرئيسية */
-  color: #fff;               /* لون النص */
+  background-color: #001E33;
+  color: #fff;
   font-family: Arial, sans-serif;
   padding: 20px;
 }
@@ -18,17 +18,17 @@
   gap: 30px;
   flex-wrap: wrap;
   justify-content: center;
+  
 }
-
 
 /* قسم إضافة المورد والقائمة */
 .add-section, .list-section {
   background-color: #001E33;
-  /* border: 1px solid #0194FF; */
   border-radius: 12px;
   padding: 20px;
   flex: 0.5;
   box-sizing: border-box;
+  position: relative; /* لتثبيت خانة البحث داخل الكونتينر */
 }
 
 .add-section h2, .list-section h2 {
@@ -37,17 +37,56 @@
   text-align: center;
 }
 
+
+
+/* خانة البحث مثبتة أعلى الكونتينر */
+.search-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  margin-bottom: 15px;
+  background-color: #001E33; /* نفس لون الكونتينر */
+  padding-bottom: 10px;
+  border-bottom: 1px solid #0194FF;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #0194FF;
+  background-color: #00264d;
+  color: #fff;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.search-input::placeholder {
+  color: #bbb;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #0194FF;
+  background-color: #00385c;
+  box-shadow: 0 0 8px rgba(1,148,255,0.5);
+}
+
 /* قائمة الموردين */
 .supplier-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 1px;
+  max-height: 70vh; /* ارتفاع ثابت للقائمة مع سكرول */
+  overflow-y: auto;
 }
 
 .supplier-item {
   display: flex;
   flex-direction: column;
-  background-color: #0195ff52; /* لون فاتح نصف شفاف */
+  background-color: #0195ff52;
   border-radius: 8px;
   padding: 5px;
   margin-bottom: 10px;
@@ -69,14 +108,14 @@
 /* أزرار الموردين - عمودي */
 .supplier-actions {
   display: flex;
-  flex-direction: column; /* جعل الأزرار فوق بعضها */
-  align-items: center;    /* محاذاة للوسط أفقياً */
+  flex-direction: column;
+  align-items: center;
   gap: 10px;
 }
 
 .supplier-actions button {
-  width: 30%;            /* عرض تقريبي 30% من الكارد */
-  min-width: 100px;      /* ضمان عرض أدنى للزر */
+  width: 30%;
+  min-width: 100px;
   text-align: center;
   background-color: #0194FF;
   color: #001E33;
@@ -96,24 +135,11 @@
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-/* ألوان أزرار محددة */
-.view-btn {
-  background-color: #0194FF;
-}
+.view-btn { background-color: #0194FF; }
+.pay-btn { background-color: #0194FF; }
+.delete-btn { background-color: #FF4D4D; color: #fff; }
 
-.pay-btn {
-  background-color: #0194FF;
-}
-
-.delete-btn {
-  background-color: #FF4D4D;
-  color: #fff;
-}
-
-.delete-btn:hover {
-  background-color: #c70000;
-  color: #fff;
-}
+.delete-btn:hover { background-color: #c70000; color: #fff; }
 
 .no-suppliers {
   text-align: center;
@@ -146,9 +172,7 @@
   text-align: center;
 }
 
-.modal-message {
-  margin-bottom: 15px;
-}
+.modal-message { margin-bottom: 15px; }
 
 .modal-close {
   background-color: #0194FF;

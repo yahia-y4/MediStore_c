@@ -14,6 +14,8 @@ export default function SuppliersPage() {
   const [viewSupplierId, setViewSupplierId] = useState(null);
   const [payDebtId, setPayDebtId] = useState(null);
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   const fetchSuppliers = async () => {
     try {
       const response = await fetch("http://prog2025.goldyol.com/api/suppliers", {
@@ -22,13 +24,9 @@ export default function SuppliersPage() {
 
       const data = await response.json();
 
-      if (Array.isArray(data.data)) {
-        setSuppliers(data.data);
-      } else if (Array.isArray(data)) {
-        setSuppliers(data);
-      } else {
-        setSuppliers([]);
-      }
+      if (Array.isArray(data.data)) setSuppliers(data.data);
+      else if (Array.isArray(data)) setSuppliers(data);
+      else setSuppliers([]);
     } catch (error) {
       console.error("Error fetching suppliers:", error);
       setSuppliers([]);
@@ -43,11 +41,7 @@ export default function SuppliersPage() {
       });
 
       let data = {};
-      try {
-        data = await response.json();
-      } catch (e) {
-        data = {};
-      }
+      try { data = await response.json(); } catch (e) { data = {}; }
 
       if (response.ok) {
         setModalMessage(data.message || "تم حذف المورد بنجاح");
@@ -68,22 +62,40 @@ export default function SuppliersPage() {
 
   useEffect(() => { fetchSuppliers(); }, []);
 
+  // تصفية الموردين حسب الاسم أو رقم الهاتف
+  const filteredSuppliers = suppliers.filter(
+    s =>
+      s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (s.contact_details?.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
   return (
     <div className="suppliers-page">
       <h1>إدارة الموردين</h1>
+
       <div className="suppliers-layout">
         {/* قسم إضافة المورد */}
-        <div className="add-section" style={{ "backgroundColor": "#001E33" }}>
+        <div className="add-section" style={{ backgroundColor: "#001E33" }}>
           <h2>إضافة مورد جديد</h2>
           <AddSupplier onSupplierAdded={fetchSuppliers} />
         </div>
 
-        {/* قسم قائمة الموردين */}
-        <div className="list-section">
-          <h2 style={{ "color": "#fff" }}>قائمة الموردين</h2>
-          {Array.isArray(suppliers) && suppliers.length > 0 ? (
+        {/* قسم قائمة الموردين مع خانة البحث */}
+        <div className="list-section" id="list-section" >
+          <h2 style={{ color: "#fff" }}>قائمة الموردين</h2>
+
+          {/* خانة البحث فوق قائمة الموردين */}
+          <input
+            type="text"
+            placeholder="ابحث بالاسم أو رقم الهاتف..."
+            className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+
+          {filteredSuppliers.length > 0 ? (
             <ul className="supplier-list">
-              {suppliers.map((s) => (
+              {filteredSuppliers.map((s) => (
                 <li key={s.id} className="supplier-item">
                   <div className="supplier-info">
                     <span className="supplier-name">{s.name}</span>
@@ -128,18 +140,10 @@ export default function SuppliersPage() {
           <div className="modal-content">
             <p className="modal-message">هل أنت متأكد من حذف هذا المورد؟</p>
             <div style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: 'wrap' }}>
-              <button
-                className="modal-close"
-                onClick={() => setConfirmDeleteId(null)}
-              >
-                إلغاء
-              </button>
+              <button className="modal-close" onClick={() => setConfirmDeleteId(null)}>إلغاء</button>
               <button
                 className="delete-btn"
-                onClick={() => {
-                  handleDelete(confirmDeleteId);
-                  setConfirmDeleteId(null);
-                }}
+                onClick={() => { handleDelete(confirmDeleteId); setConfirmDeleteId(null); }}
               >
                 تأكيد الحذف
               </button>
@@ -150,19 +154,12 @@ export default function SuppliersPage() {
 
       {/* Supplier Details Modal */}
       {viewSupplierId && (
-        <SupplierDetails
-          supplierId={viewSupplierId}
-          onClose={() => setViewSupplierId(null)}
-        />
+        <SupplierDetails supplierId={viewSupplierId} onClose={() => setViewSupplierId(null)} />
       )}
 
       {/* Pay Debt Modal */}
       {payDebtId && (
-        <PayDebt
-          supplierId={payDebtId}
-          onPaid={fetchSuppliers}
-          onClose={() => setPayDebtId(null)}
-        />
+        <PayDebt supplierId={payDebtId} onPaid={fetchSuppliers} onClose={() => setPayDebtId(null)} />
       )}
     </div>
   );
