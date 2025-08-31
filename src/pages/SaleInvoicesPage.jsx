@@ -12,7 +12,7 @@ export default function SaleInvoicesPage() {
 
   const fetchInvoices = async () => {
     try {
-      const res = await fetch("http://prog2025.goldyol.com/api/sale-invoices", {
+      const res = await fetch("https://prog2025.goldyol.com/api/sale-invoices", {
         headers: { Authorization: localStorage.getItem("auth_token") || "" },
       });
       const data = await res.json();
@@ -31,7 +31,7 @@ export default function SaleInvoicesPage() {
   // دالة الحذف
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://prog2025.goldyol.com/api/sale-invoices/${id}`, {
+      const res = await fetch(`https://prog2025.goldyol.com/api/sale-invoices/${id}`, {
         method: "DELETE",
         headers: { Authorization: localStorage.getItem("auth_token") || "" },
       });

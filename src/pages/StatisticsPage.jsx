@@ -10,7 +10,7 @@ export default function StatisticsPage() {
 
   const fetchStats = async () => {
     try {
-      const res = await fetch("http://prog2025.goldyol.com/api/statistics", {
+      const res = await fetch("https://prog2025.goldyol.com/api/statistics", {
         headers: { Authorization: localStorage.getItem("auth_token") || "" },
       });
       const data = await res.json();

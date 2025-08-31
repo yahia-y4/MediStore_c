@@ -12,7 +12,7 @@ export default function PayDebt({ supplierId, onPaid, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://prog2025.goldyol.com/api/suppliers/${supplierId}/pay-debt`, {
+      const response = await fetch(`https://prog2025.goldyol.com/api/suppliers/${supplierId}/pay-debt`, {
         method: "POST",
         headers: {
           "Authorization": localStorage.getItem("auth_token") || "",

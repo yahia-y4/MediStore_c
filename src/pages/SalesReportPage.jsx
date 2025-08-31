@@ -10,7 +10,7 @@ export default function SalesReportPage() {
     try {
       const token = localStorage.getItem("auth_token");
       const res = await fetch(
-        "http://prog2025.goldyol.com/api/reports/sales?period=monthly&start_date=2024-01-01&end_date=2025-08-31",
+        "https://prog2025.goldyol.com/api/reports/sales?period=monthly&start_date=2024-01-01&end_date=2025-08-31",
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

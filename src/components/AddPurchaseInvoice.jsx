@@ -19,7 +19,7 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const res = await fetch("http://prog2025.goldyol.com/api/items", {
+        const res = await fetch("https://prog2025.goldyol.com/api/items", {
           headers: { Authorization: localStorage.getItem("auth_token") || "" },
         });
         const data = await res.json();
@@ -35,7 +35,7 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const res = await fetch("http://prog2025.goldyol.com/api/suppliers", {
+        const res = await fetch("https://prog2025.goldyol.com/api/suppliers", {
           headers: { Authorization: localStorage.getItem("auth_token") || "" },
         });
         const data = await res.json();
@@ -79,7 +79,7 @@ export default function AddPurchaseInvoice({ onInvoiceAdded, showNotification })
     e.preventDefault();
     try {
       const payload = { ...invoiceData, total_price: totalPrice };
-      const res = await fetch("http://prog2025.goldyol.com/api/purchase-invoices", {
+      const res = await fetch("https://prog2025.goldyol.com/api/purchase-invoices", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -22,7 +22,7 @@ export default function Sidebar() {
       const token = localStorage.getItem("auth_token");
       if (!token) return;
 
-      const res = await fetch("http://prog2025.goldyol.com/api/notifications", {
+      const res = await fetch("https://prog2025.goldyol.com/api/notifications", {
         headers: { Authorization: `Bearer ${token}` },
       });
 

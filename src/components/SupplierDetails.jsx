@@ -11,7 +11,7 @@ export default function SupplierDetails({ supplierId, onClose }) {
   useEffect(() => {
     const fetchSupplier = async () => {
       try {
-        const response = await fetch(`http://prog2025.goldyol.com/api/suppliers/${supplierId}`, {
+        const response = await fetch(`https://prog2025.goldyol.com/api/suppliers/${supplierId}`, {
           headers: { "Authorization": localStorage.getItem("auth_token") || "" },
         });
 

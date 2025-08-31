@@ -18,7 +18,7 @@ export default function NotificationsPage() {
         return;
       }
 
-      const res = await fetch("http://prog2025.goldyol.com/api/notifications", {
+      const res = await fetch("https://prog2025.goldyol.com/api/notifications", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -50,7 +50,7 @@ export default function NotificationsPage() {
     try {
       const token = localStorage.getItem("auth_token");
       const res = await fetch(
-        `http://prog2025.goldyol.com/api/notifications/${id}/mark-as-read`,
+        `https://prog2025.goldyol.com/api/notifications/${id}/mark-as-read`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },

@@ -9,7 +9,7 @@ export default function ItemDetails({ itemId, onClose }) {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const res = await fetch(`http://prog2025.goldyol.com/api/items/${itemId}`, {
+        const res = await fetch(`https://prog2025.goldyol.com/api/items/${itemId}`, {
           headers: { Authorization: localStorage.getItem("auth_token") || "" },
         });
         const data = await res.json();

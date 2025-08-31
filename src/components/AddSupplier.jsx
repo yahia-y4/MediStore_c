@@ -14,7 +14,7 @@ export default function AddSupplier({ onSupplierAdded }) {
     setErrors({});
 
     try {
-      const response = await fetch("http://prog2025.goldyol.com/api/suppliers", {
+      const response = await fetch("https://prog2025.goldyol.com/api/suppliers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

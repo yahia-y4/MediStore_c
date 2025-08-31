@@ -36,7 +36,7 @@ export default function AddItem({ onItemAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://prog2025.goldyol.com/api/items", {
+      const res = await fetch("https://prog2025.goldyol.com/api/items", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

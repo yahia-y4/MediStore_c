@@ -18,7 +18,7 @@ export default function SuppliersPage() {
 
   const fetchSuppliers = async () => {
     try {
-      const response = await fetch("http://prog2025.goldyol.com/api/suppliers", {
+      const response = await fetch("https://prog2025.goldyol.com/api/suppliers", {
         headers: { "Authorization": localStorage.getItem("auth_token") || "" },
       });
 
@@ -35,7 +35,7 @@ export default function SuppliersPage() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://prog2025.goldyol.com/api/suppliers/${id}`, {
+      const response = await fetch(`https://prog2025.goldyol.com/api/suppliers/${id}`, {
         method: "DELETE",
         headers: { "Authorization": localStorage.getItem("auth_token") || "" },
       });

@@ -24,7 +24,7 @@ export default function ItemsPage() {
 
   const fetchItems = async () => {
     try {
-      const res = await fetch("http://prog2025.goldyol.com/api/items", {
+      const res = await fetch("https://prog2025.goldyol.com/api/items", {
         headers: { Authorization: token },
       });
       const data = await res.json();
@@ -37,7 +37,7 @@ export default function ItemsPage() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://prog2025.goldyol.com/api/items/${id}`, {
+      const res = await fetch(`https://prog2025.goldyol.com/api/items/${id}`, {
         method: "DELETE",
         headers: { Authorization: token },
       });

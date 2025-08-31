@@ -28,8 +28,8 @@ export default function AuthPage() {
 
     const apiUrl =
       mode === "login"
-        ? "http://prog2025.goldyol.com/api/login"
-        : "http://prog2025.goldyol.com/api/register";
+        ? "https://prog2025.goldyol.com/api/login"
+        : "https://prog2025.goldyol.com/api/register";
 
     const payload =
       mode === "login"
