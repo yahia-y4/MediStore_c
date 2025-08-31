@@ -1,3 +1,4 @@
+/* Sidebar الرئيسي */
 .sidebar {
   position: fixed;
   top: 0;
@@ -11,7 +12,7 @@
   overflow: hidden;
   z-index: 1000;
   font-family: "Arial", sans-serif;
-  font-size: 16px;
+  font-size: 18px; /* تكبير الخط الأساسي للروابط */
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4); /* ظل جميل على الجانب */
 }
 
@@ -20,6 +21,7 @@
   padding: 25px 10px;
 }
 
+/* رأس Sidebar */
 .sidebar-header {
   display: flex;
   justify-content: space-between;
@@ -28,7 +30,7 @@
 }
 
 .sidebar-title {
-  font-size: 20px;
+  font-size: 22px; /* تكبير العنوان */
   font-weight: bold;
   margin: 0;
   white-space: nowrap;
@@ -48,13 +50,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .sidebar-toggle-btn:hover {
   background-color: #2980b9;
+  transform: scale(1.1);
 }
 
+/* قائمة الروابط */
 .sidebar nav ul {
   list-style: none;
   padding: 25px 0 0 0;
@@ -68,30 +72,33 @@
 .sidebar nav ul li a {
   color: white;
   text-decoration: none;
-  font-size: 16px;
-  display: block;
-  padding: 10px 12px;
+  font-size: 18px; /* تكبير الخط */
+  display: flex;
+  align-items: center;
+  padding: 12px 12px; /* زيادة المساحة للنقر */
   border-radius: 6px;
   transition: background-color 0.3s, transform 0.2s;
 }
 
+/* تمييز الرابط النشط أو عند المرور */
 .sidebar nav ul li a.active-link,
 .sidebar nav ul li a:hover {
   background-color: #00264d; /* ظل أغمق عند المرور */
   transform: translateX(-2px);
 }
 
-.app-layout .main-content {
-  margin-right: 240px;
-  padding: 25px;
-  transition: margin-right 0.3s ease;
-  font-size: 16px;
+/* أيقونات Sidebar */
+.sidebar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  margin-right: 8px; /* المسافة بين الأيقونة والكلمة محسّنة */
+  font-size: 24px;   /* تكبير حجم الأيقونة */
+  color: white;
 }
 
-.sidebar.closed ~ .main-content {
-  margin-right: 70px;
-}
-
+/* عداد الإشعارات */
 .unread-count {
   background-color: red;
   color: white;
@@ -100,4 +107,47 @@
   padding: 3px 7px;
   border-radius: 50%;
   margin-left: 8px;
+}
+
+/* محتوى التطبيق الرئيسي */
+.app-layout .main-content {
+  margin-right: 240px;
+  padding: 25px;
+  transition: margin-right 0.3s ease;
+  font-size: 18px;
+}
+
+.sidebar.closed ~ .main-content {
+  margin-right: 70px;
+}
+
+/* تحسين تجربة التنقل عند Sidebar مغلق */
+.sidebar.closed nav ul li a {
+  justify-content: center;
+}
+
+.sidebar.closed .sidebar-icon {
+  margin-right: 0;
+}
+
+/* تفاعل عند مرور الفأرة على الروابط */
+.sidebar nav ul li a:hover .sidebar-icon {
+  transform: scale(1.1);
+  transition: transform 0.2s;
+}
+
+/* Responsive للهواتف */
+@media (max-width: 768px) {
+  .sidebar {
+    right: -240px;
+    transition: right 0.3s ease;
+  }
+
+  .sidebar.open {
+    right: 0;
+  }
+
+  .app-layout .main-content {
+    margin-right: 0;
+  }
 }

@@ -49,14 +49,19 @@ export default function NotificationsPage() {
   const markAsRead = async (id) => {
     try {
       const token = localStorage.getItem("auth_token");
-      const res = await fetch(`http://prog2025.goldyol.com/api/notifications/${id}/mark-as-read`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `http://prog2025.goldyol.com/api/notifications/${id}/mark-as-read`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         setNotifications((prev) =>
-          prev.map((n) => (n.id === id ? { ...n, read_at: new Date().toISOString() } : n))
+          prev.map((n) =>
+            n.id === id ? { ...n, read_at: new Date().toISOString() } : n
+          )
         );
       } else {
         alert(data.message || "حدث خطأ أثناء تعليم الإشعار كمقروء.");
@@ -65,6 +70,19 @@ export default function NotificationsPage() {
       console.error(err);
       alert("خطأ في الاتصال بالسيرفر.");
     }
+  };
+
+  // 🔹 دالة تنسيق التاريخ
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toLocaleString("ar-EG", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   if (loading) return <p>جارٍ تحميل الإشعارات...</p>;
@@ -76,13 +94,23 @@ export default function NotificationsPage() {
       <h2>الإشعارات</h2>
       <div className="notifications-container">
         {notifications.map((n) => (
-          <div key={n.id} className={`notification-card ${n.read_at ? "read" : "unread"}`}>
+          <div
+            key={n.id}
+            className={`notification-card ${n.read_at ? "read" : "unread"}`}
+          >
             <div className="notification-message">
               {!n.read_at && <span className="red-dot"></span>}
               <p>{n.message}</p>
+              {/* 🔹 عرض تاريخ الإشعار */}
+              <small className="notification-date">
+                {formatDate(n.created_at)}
+              </small>
             </div>
             {!n.read_at && (
-              <button className="mark-read-btn" onClick={() => markAsRead(n.id)}>
+              <button
+                className="mark-read-btn"
+                onClick={() => markAsRead(n.id)}
+              >
                 تمييز كمقروء
               </button>
             )}

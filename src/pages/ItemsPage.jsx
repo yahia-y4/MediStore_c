@@ -11,13 +11,14 @@ export default function ItemsPage() {
   const [modalType, setModalType] = useState("error");
   const [viewItemId, setViewItemId] = useState(null);
   const [editItemId, setEditItemId] = useState(null);
-  
+  const [searchTerm, setSearchTerm] = useState("");
+
   // تخزين التوكن في state
   const [token, setToken] = useState(localStorage.getItem("auth_token") || "");
 
   // إعادة جلب الأدوية عند تغير التوكن
   useEffect(() => {
-    if (!token) return; // لا تفعل شيء إذا لم يوجد توكن
+    if (!token) return;
     fetchItems();
   }, [token]);
 
@@ -55,15 +56,31 @@ export default function ItemsPage() {
     }
   };
 
-  // هذه الدالة يمكن استخدامها عند تسجيل دخول جديد لتحديث التوكن
+  // تحديث التوكن عند تسجيل دخول جديد
   const updateToken = (newToken) => {
     localStorage.setItem("auth_token", newToken);
     setToken(newToken);
   };
 
+  // تصفية الأدوية حسب البحث بالاسم أو الكود
+  const filteredItems = items.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.code?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="items-page-content">
       <h1>إدارة الأدوية</h1>
+
+      {/* خانة البحث */}
+      <input
+        type="text"
+        placeholder="ابحث بالاسم أو الكود..."
+        className="search-input"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
 
       <div className="items-layout">
         <div className="add-section">
@@ -72,9 +89,9 @@ export default function ItemsPage() {
 
         <div className="list-section">
           <h2>قائمة الأدوية</h2>
-          {items.length > 0 ? (
+          {filteredItems.length > 0 ? (
             <ul className="item-list">
-              {items.map((i) => (
+              {filteredItems.map((i) => (
                 <li key={i.id} className="item">
                   <div className="item-info">
                     <span className="item-name">{i.name}</span>

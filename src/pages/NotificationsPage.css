@@ -4,66 +4,95 @@
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
+  min-height: 100vh;
+  color: #fff; /* النص أبيض */
+  background-color: #001E33; /* خلفية الصفحة موحدة */
 }
 
 .notifications-page h2 {
-  margin-bottom: 20px;
-  color: #1a73e8; /* لون أزرق واضح */
-  font-size: 28px; /* تكبير الخط لزيادة الوضوح */
-  font-weight: 700; /* جعل العنوان غامق */
+  margin-bottom: 30px;
+  color: #0194FF; /* أزرق فاتح */
+  font-size: 28px;
+  font-weight: 700;
   text-align: center;
+  border-bottom: 2px solid #0194FF;
+  padding-bottom: 10px;
 }
 
 .notifications-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 25px;
+  max-width: 1000px;
 }
 
 .notification-card {
-  background-color: #f5f5f5;
-  width: 300px;
+  background-color: #002b4d; /* خلفية موحدة للكرت */
+  width: 320px;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* ظل جميل */
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  transition: transform 0.2s;
+  gap: 12px;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  color: #fff; /* نص داخل الكرت أبيض */
 }
 
 .notification-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
 }
 
 .notification-card.read {
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .notification-message {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification-message p {
+  margin: 0;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.notification-date {
+  font-size: 13px;
+  color: #e0e0e0; /* أفتح شوي لتمييز التاريخ */
+  margin-top: 4px;
+  align-self: flex-end;
 }
 
 .red-dot {
-  width: 10px;
-  height: 10px;
-  background-color: red;
+  width: 12px;
+  height: 12px;
+  background-color: #ff4d4f; /* أحمر واضح */
   border-radius: 50%;
+  position: absolute;
+  top: 12px;
+  left: 12px;
 }
 
 .mark-read-btn {
   align-self: flex-start;
-  padding: 5px 10px;
-  background-color: #007bff;
+  padding: 6px 14px;
+  background-color: #0194FF;
   border: none;
-  color: white;
-  border-radius: 5px;
+  color: #fff;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
 }
 
 .mark-read-btn:hover {
-  background-color: #0056b3;
+  background-color: #0077cc;
 }
