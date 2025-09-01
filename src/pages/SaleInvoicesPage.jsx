@@ -15,12 +15,16 @@ export default function SaleInvoicesPage() {
       const res = await fetch("https://prog2025.goldyol.com/api/sale-invoices", {
         headers: { Authorization: localStorage.getItem("auth_token") || "" },
       });
+
+      if (!res.ok) throw new Error("فشل جلب الفواتير");
+
       const data = await res.json();
-      if (Array.isArray(data.data)) setInvoices(data.data);
-      else setInvoices([]);
+      setInvoices(Array.isArray(data.data) ? data.data : []);
     } catch (error) {
       console.error(error);
       setInvoices([]);
+      setModalMessage("حدث خطأ أثناء جلب الفواتير");
+      setModalType("error");
     }
   };
 
@@ -28,26 +32,31 @@ export default function SaleInvoicesPage() {
     fetchInvoices();
   }, []);
 
-  // دالة الحذف
+  // دالة الحذف مع معالجة الأخطاء
   const handleDelete = async (id) => {
     try {
       const res = await fetch(`https://prog2025.goldyol.com/api/sale-invoices/${id}`, {
         method: "DELETE",
         headers: { Authorization: localStorage.getItem("auth_token") || "" },
       });
-      const data = await res.json();
-      if (res.ok) {
-        setModalType("success");
-        setModalMessage("تم حذف فاتورة البيع بنجاح");
-        fetchInvoices();
-      } else {
-        setModalType("error");
-        setModalMessage(data.message || "حدث خطأ أثناء الحذف");
+
+      if (!res.ok) {
+        // محاولة قراءة JSON إذا كان موجود
+        let errMsg = "فشل الحذف";
+        try {
+          const data = await res.json();
+          errMsg = data.message || JSON.stringify(data.errors) || errMsg;
+        } catch (_) {}
+        throw new Error(errMsg);
       }
+
+      setModalType("success");
+      setModalMessage("تم حذف فاتورة البيع بنجاح");
+      fetchInvoices();
     } catch (err) {
-      setModalType("error");
-      setModalMessage("حدث خطأ في الاتصال بالسيرفر");
       console.error(err);
+      setModalType("error");
+      setModalMessage(err.message || "حدث خطأ أثناء الحذف");
     } finally {
       setConfirmDeleteInvoice(null);
     }

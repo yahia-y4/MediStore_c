@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
 /* استيراد أيقونات MUI */
@@ -11,11 +11,13 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DescriptionIcon from '@mui/icons-material/Description';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import LoginIcon from '@mui/icons-material/Login';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings'; // أيقونة التحكم
 
 export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true);
   const [unreadCount, setUnreadCount] = useState(0);
+  const navigate = useNavigate();
 
   const fetchUnreadCount = async () => {
     try {
@@ -38,7 +40,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     fetchUnreadCount();
-    const interval = setInterval(fetchUnreadCount, 60000); // تحديث كل دقيقة
+    const interval = setInterval(fetchUnreadCount, 60000);
     const handleUpdate = () => fetchUnreadCount();
     window.addEventListener("notifications-updated", handleUpdate);
 
@@ -47,6 +49,11 @@ export default function Sidebar() {
       window.removeEventListener("notifications-updated", handleUpdate);
     };
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("auth_token");
+    navigate("/auth"); // يرجع المستخدم لصفحة تسجيل الدخول
+  };
 
   const menuItems = [
     { title: "الرئيسية", link: "/", icon: <HomeIcon /> },
@@ -57,19 +64,16 @@ export default function Sidebar() {
     { title: "الإحصائيات", link: "/statistics", icon: <BarChartIcon /> },
     { title: "تقرير المبيعات", link: "/sales-report", icon: <DescriptionIcon /> },
     { title: "الإشعارات", link: "/notifications", icon: <NotificationsIcon />, badge: unreadCount },
-    { title: "تسجيل الدخول", link: "/auth", icon: <LoginIcon /> },
+    { title: "الحساب", link: "/auth", icon: <AccountCircleIcon /> },
   ];
 
   return (
-    <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
+    <div className="sidebar open">
       <div className="sidebar-header">
-        <h2 className="sidebar-title">{isOpen ? "لوحة التحكم" : ""}</h2>
-        <button
-          className="sidebar-toggle-btn"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? "❮" : "❯"}
-        </button>
+        <h2 className="sidebar-title">لوحة التحكم</h2>
+        <span className="sidebar-settings">
+          <SettingsIcon />
+        </span>
       </div>
 
       <nav>
@@ -88,6 +92,14 @@ export default function Sidebar() {
               </NavLink>
             </li>
           ))}
+
+          {/* زر تسجيل الخروج */}
+          <li>
+            <button onClick={handleLogout} className="logout-btn">
+              <span className="sidebar-icon"><LogoutIcon /></span>
+              تسجيل الخروج
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
