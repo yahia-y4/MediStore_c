@@ -48,7 +48,7 @@ export default function AddSaleInvoice({ onInvoiceAdded }) {
 
   const updateQuantity = (itemId, quantity) => {
     const item = items.find(i => i.id === itemId);
-    const maxQty = item?.quantity || 1; // الحد الأقصى من المخزون
+    const maxQty = item?.quantity || 1;
     let qty = Number(quantity);
     if (isNaN(qty) || qty < 1) qty = 1;
     if (qty > maxQty) qty = maxQty;
@@ -125,14 +125,29 @@ export default function AddSaleInvoice({ onInvoiceAdded }) {
       if (res.ok) {
         setModalMessage("تم إنشاء فاتورة المبيعات بنجاح");
         setModalType("success");
+
+        // تحديث كميات العناصر في الواجهة مباشرة
+        setItems(prevItems =>
+          prevItems.map(it => {
+            const soldItem = invoiceData.items.find(i => i.item_id === it.id);
+            if (soldItem) {
+              return { ...it, quantity: it.quantity - soldItem.quantity };
+            }
+            return it;
+          })
+        );
+
+        // إعادة تعيين بيانات الفاتورة
         setInvoiceData({
           buyer_name: "",
           warehouse_owner_name: "",
           invoice_date: "",
           items: [],
         });
+
         onInvoiceAdded && onInvoiceAdded();
       } else {
+        console.log(data)
         setModalMessage(JSON.stringify(data.errors || data.message));
         setModalType("error");
       }
