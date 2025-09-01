@@ -13,6 +13,7 @@ export default function SuppliersPage() {
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [viewSupplierId, setViewSupplierId] = useState(null);
   const [payDebtId, setPayDebtId] = useState(null);
+  const [payDebtSupplier, setPayDebtSupplier] = useState(null); // لتخزين بيانات المورد مع الدين
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -21,9 +22,7 @@ export default function SuppliersPage() {
       const response = await fetch("https://prog2025.goldyol.com/api/suppliers", {
         headers: { "Authorization": localStorage.getItem("auth_token") || "" },
       });
-
       const data = await response.json();
-
       if (Array.isArray(data.data)) setSuppliers(data.data);
       else if (Array.isArray(data)) setSuppliers(data);
       else setSuppliers([]);
@@ -62,29 +61,45 @@ export default function SuppliersPage() {
 
   useEffect(() => { fetchSuppliers(); }, []);
 
-  // تصفية الموردين حسب الاسم أو رقم الهاتف
   const filteredSuppliers = suppliers.filter(
     s =>
       s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (s.contact_details?.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
+  // فتح مودال دفع الدين وجلب تفاصيل المورد من API
+  const handleOpenPayDebt = async (id) => {
+    try {
+      const response = await fetch(`https://prog2025.goldyol.com/api/suppliers/${id}`, {
+        headers: { "Authorization": localStorage.getItem("auth_token") || "" }
+      });
+      const data = await response.json();
+      if (response.ok && data.data) {
+        setPayDebtSupplier(data.data); // يحتوي على total_debt
+        setPayDebtId(id);
+      } else {
+        setModalMessage(data.message || "حدث خطأ أثناء جلب تفاصيل المورد");
+        setModalType("error");
+      }
+    } catch (error) {
+      setModalMessage("حدث خطأ في الاتصال بالسيرفر");
+      setModalType("error");
+    }
+  };
+
   return (
     <div className="suppliers-page">
       <h1>إدارة الموردين</h1>
 
       <div className="suppliers-layout">
-        {/* قسم إضافة المورد */}
         <div className="add-section" style={{ backgroundColor: "#001E33" }}>
           <h2>إضافة مورد جديد</h2>
           <AddSupplier onSupplierAdded={fetchSuppliers} />
         </div>
 
-        {/* قسم قائمة الموردين مع خانة البحث */}
         <div className="list-section" id="list-section" >
           <h2 style={{ color: "#fff" }}>قائمة الموردين</h2>
 
-          {/* خانة البحث فوق قائمة الموردين */}
           <input
             type="text"
             placeholder="ابحث بالاسم أو رقم الهاتف..."
@@ -103,24 +118,9 @@ export default function SuppliersPage() {
                   </div>
                   <div className="supplier-actions">
                     <span className="supplier-balance">الرصيد: {s.balance}</span>
-                    <button
-                      className="view-btn"
-                      onClick={() => setViewSupplierId(s.id)}
-                    >
-                      عرض التفاصيل
-                    </button>
-                    <button
-                      className="pay-btn"
-                      onClick={() => setPayDebtId(s.id)}
-                    >
-                      دفع الدين
-                    </button>
-                    <button
-                      className="delete-btn"
-                      onClick={() => setConfirmDeleteId(s.id)}
-                    >
-                      حذف
-                    </button>
+                    <button className="view-btn" onClick={() => setViewSupplierId(s.id)}>عرض التفاصيل</button>
+                    <button className="pay-btn" onClick={() => handleOpenPayDebt(s.id)}>دفع الدين</button>
+                    <button className="delete-btn" onClick={() => setConfirmDeleteId(s.id)}>حذف</button>
                   </div>
                 </li>
               ))}
@@ -131,10 +131,8 @@ export default function SuppliersPage() {
         </div>
       </div>
 
-      {/* Modal للرسائل */}
       <Modal message={modalMessage} type={modalType} onClose={() => setModalMessage("")} />
 
-      {/* Confirm Modal للحذف */}
       {confirmDeleteId && (
         <div className="modal-backdrop">
           <div className="modal-content">
@@ -152,14 +150,17 @@ export default function SuppliersPage() {
         </div>
       )}
 
-      {/* Supplier Details Modal */}
       {viewSupplierId && (
         <SupplierDetails supplierId={viewSupplierId} onClose={() => setViewSupplierId(null)} />
       )}
 
-      {/* Pay Debt Modal */}
-      {payDebtId && (
-        <PayDebt supplierId={payDebtId} onPaid={fetchSuppliers} onClose={() => setPayDebtId(null)} />
+      {payDebtId && payDebtSupplier && (
+        <PayDebt
+          supplierId={payDebtId}
+          totalDebt={payDebtSupplier.total_debt || 0}
+          onPaid={fetchSuppliers}
+          onClose={() => { setPayDebtId(null); setPayDebtSupplier(null); }}
+        />
       )}
     </div>
   );

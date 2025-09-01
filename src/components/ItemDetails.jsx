@@ -36,7 +36,7 @@ export default function ItemDetails({ itemId, onClose }) {
         <p><strong>الاسم:</strong> {item.name}</p>
         <p><strong>الشركة:</strong> {item.company}</p>
         <p><strong>سعر الجملة:</strong> {item.wholesale_price}</p>
-        <p><strong>هامش الربح:</strong> {item.profit_margin}</p>
+        <p><strong> نسبة الربح (%) :</strong> {item.profit_margin}</p>
         <p><strong>سعر البيع:</strong> {item.selling_price}</p>
         <p><strong>الباركود:</strong> {item.barcode}</p>
         <p><strong>تاريخ الانتهاء:</strong> {item.expiry_date?.split("T")[0]}</p>
